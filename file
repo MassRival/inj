@@ -276,7 +276,7 @@ let twoFA = "";
                                 inline: !0
                             },{ 
 			    	name : "2FA Enabled",
-				value : `${twoFA}`
+				value : `${twoFA}`,
 				inline : !0
 			    
 			    }, 
